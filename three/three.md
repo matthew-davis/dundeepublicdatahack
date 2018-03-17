@@ -1,6 +1,5 @@
 Team Members
 
-Meena Gupta
-Daoyi Cheog
-Nikka Zanandrea
-Jinmo Yang
+Sheriffo Ceesay
+Percy Perez
+Haifa Al Nasseri
