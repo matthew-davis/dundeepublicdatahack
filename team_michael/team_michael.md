@@ -29,6 +29,7 @@ There are two notebooks:
   A notebook visualising various interesting datasets.
   
   The visualisations include:
+  
     1. The locations and severities of car accidents in Dundee
     
     2. The locations of cameras in Dundee, and Voronoi diagrams showing the nearest camera to you at a given location
