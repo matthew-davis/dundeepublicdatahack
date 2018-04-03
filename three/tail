@@ -1,0 +1,42 @@
+
+# compiling documents
+doc_complete = [doc1, doc2, doc3, doc4, doc5, doc6, doc7, doc8, doc9, doc10, doc11, doc12, doc13, doc14, doc15, doc16, doc17, doc18]
+
+#  Cleaning
+
+stop = set(stopwords.words('english'))
+exclude = set(string.punctuation)
+lemma = WordNetLemmatizer()
+
+def clean(doc):
+    stop_free = " ".join([i for i in doc.lower().split() if i not in stop])
+    punc_free = ''.join(ch for ch in stop_free if ch not in exclude)
+    normalized = " ".join(lemma.lemmatize(word) for word in punc_free.split())
+    return normalized
+
+doc_clean = [clean(doc).split() for doc in doc_complete]    
+
+#print(doc_clean)
+
+# Creating the term dictionary of our courpus, where every unique term is assigned an index. 
+dictionary = corpora.Dictionary(doc_clean)
+
+# Converting list of documents (corpus) into Document Term Matrix using dictionary prepared above.
+doc_term_matrix = [dictionary.doc2bow(doc) for doc in doc_clean]
+#print(doc_term_matrix)
+
+# Creating the object for LDA model using gensim library
+Lda = gensim.models.ldamodel.LdaModel
+
+# Running and Trainign LDA model on the document term matrix.
+ldamodel = Lda(doc_term_matrix, num_topics=3, id2word = dictionary, passes=150)
+
+
+# Printing results
+# Expected results
+# [(0, u'0.065*"driving" + 0.065*"pressure" + 0.064*"stress"'), (1, u'0.050*"spends" + 0.050*"practice" + 0.050*"around"'), (2, u'0.076*"sugar" + 0.076*"father" + 0.076*"sister"')]
+
+print(ldamodel.print_topics(num_topics=3, num_words=3))
+
+
+
